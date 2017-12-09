@@ -9,41 +9,61 @@
 <title></title>
 </head>
 <body>
-	<%
-		List<String> list = new ArrayList<String>();
-		
+	<%		
 	
 		try {
+			
 			//Create a connection string
 			String url = "jdbc:mysql://cs336database.c89rkcpk4ocp.us-east-2.rds.amazonaws.com:3306/hoteldatabase";
+			
 			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
 			Class.forName("com.mysql.jdbc.Driver");
+			
 			//Create a connection to your DB
 			Connection con = DriverManager.getConnection(url, "root", "hotelcs336");
-					
 			
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			// get the uername from welcome.jsp
-			String username_entity = request.getParameter("Customer");
+			
+			
 			// get the password from welcome.jsp
-			String password_entity = request.getParameter("password_password");
+			String password_entity = request.getParameter("password");
 			
 			// Need to check if the database contains this username
-			
-			username_entity = "Customer";
+			String username_entity = "Customer";
 			String str = "SELECT * FROM " + username_entity;
 			ResultSet result = stmt.executeQuery(str);
 			
+			// get the input username
+			String username = request.getParameter("username");
+			// get the input cid
+			int cid = Integer.valueOf(request.getParameter("cid"));
+			// get the user password
+			String password = request.getParameter("password");
+			
+			// holds the redirect link
+			String redirectLink = null;
+			// falg for checking if the database has this user
+			boolean isFoundUser = false;
 			
 			while (result.next()){
-				String name = result.getString("Name");
-				out.print(name);
+				/* Check if database has this user */
+				if (result.getString("Name").equals(username) && result.getInt("CID") == cid && result.getString("password").equals(password)){
+					isFoundUser = true;
+					request.setAttribute("cid", cid);
+					request.getRequestDispatcher("hello.jsp").forward(request,response);
+					break;
+				}
 			}
-			//out.print(str);
+			if (isFoundUser == false){
+				/* direct to the error page */
+				redirectLink = "no_such_user.jsp";
+			}
+			response.sendRedirect(redirectLink);
 			
 		} catch (Exception e){
-			
+			e.printStackTrace();
 		}
 		
 	%>
