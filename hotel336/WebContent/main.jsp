@@ -26,41 +26,45 @@
 			Statement stmt = con.createStatement();
 			// get the uername from welcome.jsp
 			
-			
-			// get the password from welcome.jsp
-			String password_entity = request.getParameter("password");
-			
 			// Need to check if the database contains this username
 			String username_entity = "Customer";
 			String str = "SELECT * FROM " + username_entity;
 			ResultSet result = stmt.executeQuery(str);
 			
-			// get the input username
-			String username = request.getParameter("username");
-			// get the input cid
-			int cid = Integer.valueOf(request.getParameter("cid"));
 			// get the user password
 			String password = request.getParameter("password");
 			
-			// holds the redirect link
-			String redirectLink = null;
-			// falg for checking if the database has this user
-			boolean isFoundUser = false;
-			
-			while (result.next()){
-				/* Check if database has this user */
-				if (result.getString("Name").equals(username) && result.getInt("CID") == cid && result.getString("password").equals(password)){
-					isFoundUser = true;
-					request.setAttribute("cid", cid);
-					request.getRequestDispatcher("hello.jsp").forward(request,response);
-					break;
+			// get the input username
+			String username = request.getParameter("username");
+			// get the input cid
+			int cid = -1;
+			String cid_str = request.getParameter("cid");
+			if (cid_str.equals("") || password.equals("") || username.equals("")){
+				response.sendRedirect("no_such_user.jsp");
+			}else {
+				cid = Integer.valueOf(cid_str);
+				
+				// holds the redirect link
+				String redirectLink = null;
+				// falg for checking if the database has this user
+				boolean isFoundUser = false;
+				
+				while (result.next()){
+					/* Check if database has this user */
+					if (result.getString("Name").equals(username) && result.getInt("CID") == cid && result.getString("password").equals(password)){
+						isFoundUser = true;
+						request.setAttribute("cid", cid);
+						request.getRequestDispatcher("hello.jsp").forward(request,response);
+						break;
+					}
+				}
+				if (isFoundUser == false){
+					/* direct to the error page */
+					response.sendRedirect("no_such_user.jsp");
 				}
 			}
-			if (isFoundUser == false){
-				/* direct to the error page */
-				redirectLink = "no_such_user.jsp";
-			}
-			response.sendRedirect(redirectLink);
+			
+			
 			
 		} catch (Exception e){
 			e.printStackTrace();
