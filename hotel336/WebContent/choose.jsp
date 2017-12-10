@@ -24,11 +24,14 @@
 			
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-					
-			String entity = request.getParameter("r_choose");
-						
+			
+			//Get cid from hello.jsp
+			String entity = request.getAttribute("cid").toString();
+			
+			//Query to get Customer information
 			String str = "select * from Customer where CID =" + entity;
-					
+			
+			//Execute query above 
 			ResultSet result = stmt.executeQuery(str);
 						
 			//Make an HTML table to show the results in:
@@ -56,9 +59,10 @@
 				out.print("<td>");
 				out.print("Room Review ");
 				out.print("<form method=get action=Review.jsp enctype=text/plain>");
-				out.print("<input type=text name=room_chosen value="+ entity + "  >");
+				/*out.print("<input type=text name=InvoiceNo value="+ request.getParameter("InvoiceNo") + "  >");*/
+				/*out.print("<input type=text name=cid value="+ entity + "  >");*/
+				out.print("<input type=text name=category value=room  >");
 				out.print("<input type=button value=Choose>");
-				out.print("</form>");
 				out.print("</form>");
 				out.print("</td>");
 				out.print("</tr>");
@@ -70,9 +74,10 @@
 				out.print("<td>");
 				out.print("Breakfast Review ");
 				out.print("<form method=get action=Review.jsp enctype=text/plain>");
-				out.print("<input type=text name=breakfast_chosen value="+ entity + "  >");
+				/*out.print("<input type=text name=InvoiceNo value="+ request.getParameter("InvoiceNo") + "  >");*/
+				/*out.print("<input type=text name=cid value="+ entity + "  >");*/
+				out.print("<input type=text name=category value=breakfast  >");
 				out.print("<input type=button value=Choose>");
-				out.print("</form>");
 				out.print("</form>");
 				out.print("</td>");
 				out.print("</tr>");
@@ -84,9 +89,10 @@
 				out.print("<td>");
 				out.print("Service Review ");
 				out.print("<form method=get action=Review.jsp enctype=text/plain>");
-				out.print("<input type=text name=service_chosen value="+ entity + "  >");
+				/*out.print("<input type=text name=InvoiceNo value="+ request.getParameter("InvoiceNo") + "  >");*/
+				/*out.print("<input type=text name=cid value="+ entity + "  >");*/
+				out.print("<input type=text name=category value=service  >");
 				out.print("<input type=button value=Choose>");
-				out.print("</form>");
 				out.print("</form>");
 				out.print("</td>");
 				out.print("</tr>");

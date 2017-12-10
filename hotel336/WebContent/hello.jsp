@@ -25,10 +25,13 @@
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			
+			//Get cid from welcome.jsp
 			String entity = request.getAttribute("cid").toString();
-				
-			String str = "select * from Hotel h join Contain c on h.HotelID = c.HotelID join Reservation r on c.InvoiceNo = r.InvoiceNo";
-			out.print(entity);
+			
+			//Query to get InvoiceNo, HotelId, and Location
+			String str = "select r.InvoiceNo, h.HotelID, h.Location from Reservation r, Hotel h join Contain c on h.HotelID = c.HotelID and c.InvoiceNo = r.InvoiceNo";
+			
+			//Execute query above
 			ResultSet result = stmt.executeQuery(str);
 				
 			//Make an HTML table to show the results in:
@@ -36,16 +39,22 @@
 				
 			//make a row
 			out.print("<tr>");
+			
+			//make a column
+			out.print("<td>");
+			//print out column header
+			out.print("Invoice No");
+			out.print("</td>");
 				
 			//make a column
 			out.print("<td>");
-				
 			//print out column header
 			out.print("Hotel ID");
 			out.print("</td>");
 				
 			//make a column
 			out.print("<td>");
+			//print out column header
 			out.print("Hotel Location");
 			out.print("</td>");
 			out.print("</tr>");
@@ -55,6 +64,11 @@
 			{
 				//make a row
 				out.print("<tr>");
+				//make a column
+				out.print("<td>");
+				//Print out current InvoiceNo:
+				out.print(result.getInt("InvoiceNo"));
+				out.print("</td>");
 				//make a column
 				out.print("<td>");
 				//Print out current Hotel ID:
@@ -67,7 +81,8 @@
 				//Make the Choose button
 				out.print("<td>");
 				out.print("<form method=get action=choose.jsp enctype=text/plain>");
-				out.print("<input type=text name=r_choose value="+ entity + "  >");
+				out.print("<input type=text name=InvoiceNo value="+ result.getInt("InvoiceNo") + "  >");
+				/*out.print("<input type=text name=r_choose value="+ entity + "  >");*/
 				out.print("<input type=button value=Choose>");
 				out.print("</form>");
 				out.print("</td>");
@@ -83,7 +98,7 @@
 	<br>
 	<br>
 	<form method="get" action="search.jsp" enctype=text/plain>
-	Start a new reservation <input type = "button" name = "start" value = "Start"/>
+	Start a new reservation <input type = "button" value = "Start"/>
 	</form>
 	<br>
 	<pre>					<input type="button" value="Logout" onClick = "javascript:location.href='welcome.jsp'"> </pre>
