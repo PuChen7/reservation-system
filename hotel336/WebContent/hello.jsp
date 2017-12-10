@@ -28,7 +28,7 @@
 			String entity = request.getAttribute("cid").toString();
 				
 			String str = "select * from Hotel h join Contain c on h.HotelID = c.HotelID join Reservation r on c.InvoiceNo = r.InvoiceNo";
-			
+			out.print(entity);
 			ResultSet result = stmt.executeQuery(str);
 				
 			//Make an HTML table to show the results in:
