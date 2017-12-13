@@ -37,12 +37,11 @@
 			// get the input username
 			String username = request.getParameter("username");
 			// get the input cid
-			int cid = -1;
+			
 			String cid_str = request.getParameter("cid");
-			if (cid_str.equals("") || password.equals("") || username.equals("")){
+			if (password.equals("") || username.equals("")){
 				response.sendRedirect("no_such_user.jsp");
 			}else {
-				cid = Integer.valueOf(cid_str);
 				
 				// holds the redirect link
 				String redirectLink = null;
@@ -51,7 +50,9 @@
 				
 				while (result.next()){
 					/* Check if database has this user */
-					if (result.getString("Name").equals(username) && result.getInt("CID") == cid && result.getString("password").equals(password)){
+					if (result.getString("Name").equals(username) && result.getString("password").equals(password)){
+						// get the cid
+						int cid = Integer.valueOf(result.getString("CID"));
 						isFoundUser = true;
 						request.setAttribute("cid", cid);
 						request.getRequestDispatcher("hello.jsp").forward(request,response);

@@ -24,7 +24,7 @@
 			// register email
 			String email = request.getParameter("register_email");
 			// register cid
-			int cid = Integer.valueOf(request.getParameter("register_cid"));
+			String cidstr = request.getParameter("register_cid");
 			// register address
 			String address = request.getParameter("register_parameter");
 			// register phone number
@@ -36,6 +36,13 @@
 			if (password.length() > 16){
 				response.sendRedirect("password_error.jsp");
 			}
+			
+			// check if the input are correct
+			if (username.equals("") || password.equals("") || cidstr.equals("")){
+				response.sendRedirect("wronginput.jsp");
+			}
+			
+			int cid = Integer.valueOf(cidstr);
 			
 			// check if database already has this user
 			Statement stmt = con.createStatement();
@@ -63,13 +70,20 @@
 				st.setString(6, password);
 				
 				st.executeUpdate();
-				
-				
 			}
+			
+			// registered successfully
+			request.setAttribute("success_username", username);
+			request.setAttribute("success_password", password);
+			request.setAttribute("success_cid", cid);
+			request.getRequestDispatcher("register_success.jsp").forward(request,response);
+
+
+			//response.sendRedirect("register_success.jsp");
 			con.close();
 			
 		} catch (Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	%>
 </body>

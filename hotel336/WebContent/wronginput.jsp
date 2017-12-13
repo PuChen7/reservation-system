@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Wrong Password | Hotel 336</title>
+<title>Wrong Input | Hotel 336</title>
 <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 
 <style>
@@ -23,7 +23,7 @@
 
 </head>
 <body>
-<h1>Error: Password length should between 1-16 characters!</h1>
+<h1>Error: your register info is incorrect!</h1>
 <a href="welcome.jsp">Back to the register page</a>
 </body>
 </html>

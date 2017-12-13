@@ -40,8 +40,8 @@ h1 {
 }
 
 nav {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 18px;
+  	font-family: 'Quicksand', sans-serif;
+  	font-size: 18px;
     height: 50px;
     display: inline;
     list-style-type: none;
@@ -86,6 +86,72 @@ ul {
 }
 
 
+input[type=text] {
+    width: 280px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 17px;
+    background-color: white;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 10px 15px 12px 10px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 30%;
+}
+
+input[type=password] {
+    width: 280px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 17px;
+    background-color: white;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 10px 15px 12px 10px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=password]:focus {
+    width: 30%;
+}
+
+
+
+.button{
+	background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+
+.button5 {
+	background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+    
+}
+
+.button5:hover {
+    background-color: #e7e7e7;
+}
+
+
 </style>
 </head>
 
@@ -107,17 +173,16 @@ ul {
 <div class = "form">
 	<!-- Login -->
 	<form action = "main.jsp" method = "post">
-		Username: <input type = "text" name = "username" />
+		<input type = "text" name = "username" placeholder="username"/>
 	    <br />
-	    Driver License: <input type = "text" name = "cid">
 	    <br>
-	    Password: <input type = "password" name = "password" />
+	    <input type = "password" name = "password" placeholder="password"/>
 	    <br>
-	    <input type = "submit" value = "Login" />
+	    <input class="button button5" type = "submit" value = "Login" />
 	</form>
 
 New user? Register first to login: <br>
-<input type = "submit" value = "Register" onClick = "javascript:location.href='register.jsp'"/>
+<input class="button button5" type = "submit" value = "Register" onClick = "javascript:location.href='register.jsp'"/>
 </div>
 
 

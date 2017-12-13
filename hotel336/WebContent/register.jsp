@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 <style>
 	h1{
+	padding-top: 2cm;
 	 font-size: 300%;
 	 font-weight: bold;
 	 text-align: center;
@@ -17,10 +18,67 @@
 	.form {
 		text-align: center;
 	}
+	
+	nav {
+		font-family: 'Quicksand', sans-serif;
+		 font-size: 18px;
+	    height: 50px;
+	    display: inline;
+	    list-style-type: none;
+	    margin: 0;
+	    padding: 0;
+	    overflow: hidden;
+	    background-color: white;
+	    position: fixed;
+	    top: 0;
+	    width: 100%;
+	    border-bottom:1px solid black;
+	}
+
+	ul {
+	  list-style-type: none;
+	  padding-right: 80px;
+	}
+	
+	 li {
+	    float: right;
+	 }
+	
+	 li a {
+	    color: black;
+	    text-align: center;
+	    padding: 14px 16px;
+	    padding-right: 30px;
+	    text-decoration: none;
+	 }
+	
+	 li a:hover {
+	  color: #040CFC;
+	 }
+	
+	.tag {
+	  text-decoration: none;
+	  float: left;
+	  display: inline;
+	  text-align: left;
+	  padding-top: 14px;
+	  margin-left: 60px;
+	 }
+	 
 </style>
 
 </head>
 <body>
+
+	<nav>            
+			<div class="tag">Welcome | Hotel 336</div>
+            <ul>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a class="active" href="welcome.jsp">Home</a></li>
+            </ul>           
+	</nav>
+	
 	<h1>Register</h1>
 	<div class="form">
 		<!-- register -->
