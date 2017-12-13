@@ -35,6 +35,9 @@
 						<select name = "hotelid" size=1>
 						<option value = "-1"> select location</option>
 						<%	
+							List<String> list = new ArrayList<String>();
+							list.add(request.getParameter("cid"));
+							session.setAttribute("Data", list);
 							try {
 									String url = "jdbc:mysql://cs336database.c89rkcpk4ocp.us-east-2.rds.amazonaws.com/hoteldatabase";
 									Class.forName("com.mysql.jdbc.Driver");

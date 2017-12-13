@@ -9,7 +9,8 @@
 <title>Review</title>
 </head>
 <body>
-	<%
+	<%	
+		String id = request.getParameter("cid");
 		try{
 			//Create a connection string
 			String url = "jdbc:mysql://cs336database.c89rkcpk4ocp.us-east-2.rds.amazonaws.com:3306/hoteldatabase";
@@ -27,8 +28,6 @@
 			String r = request.getParameter("rate");
 			//get the comment
 			String comment = request.getParameter("comment");
-			//get cid
-			String id = request.getParameter("cid");
 			//get invoice number
 			String inno = request.getParameter("InvoiceNo");
 			//get category
@@ -36,9 +35,44 @@
 			//generate reviewid
 			String step1 = id+inno;
 			String step2 = step1+Integer.toString((category.charAt(0)+0));
-			int reviewid = 0;
+			int reviewid = Integer.parseInt(step2);
+			int cid = Integer.parseInt(id);
+			int invoice = Integer.parseInt(inno);
+			int rate = Integer.parseInt(r);
+			String str = "SELECT ResDate FROM Reservation Where InvoiceNo = "+inno;
+			ResultSet result = stmt.executeQuery(str);
+			result.next();
+			//get the date of the invoice
+			java.sql.Date date = result.getDate("ResDate");
+			String insertSQL = "";
+			if(category.equals("room")){
+				insertSQL = "INSERT INTO RoomReview(ReviewID,Rating,TextComment,reviewDate)" + "VALUES(?,?,?,?)";
+
+			}else if(category.equals("breakfast")){
+				insertSQL = "INSERT INTO BreakfastReview(ReviewID,Rating,TextComment,reviewDate)" + "VALUES(?,?,?,?)";
+			}else{
+				insertSQL = "INSERT INTO ServiceReview(ReviewID,Rating,TextComment,reviewDate)" + "VALUES(?,?,?,?)";
+			}
+			PreparedStatement st = con.prepareStatement(insertSQL);
+			st.setInt(1, reviewid);
+			st.setInt(2,rate);
+			st.setString(3,comment);
+			st.setDate(4, date);
+			st.executeUpdate();
+			if(category.equals("room")){
+				str = "SET @isRoomReviewed := 1 FROM make Where CID="+id+"and InvoiceNo="+inno;
+			}else if(category.equals("breakfast")){
+				str = "SET @isBreakfastReviewed := 1 FROM make Where CID="+id+"and InvoiceNo="+inno;
+			}else{
+				str = "SET @isServiceReviewed := 1 FROM make Where CID="+id+"and InvoiceNo="+inno;
+			}
+			stmt.execute(str);
+			con.close();
 		}catch(Exception e){
 			
+		}finally{
+			request.setAttribute("cid", id);
+			request.getRequestDispatcher("hellow.jsp").forward(request, response);
 		}
 	%>
 </body>

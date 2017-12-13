@@ -13,92 +13,111 @@
 	<h1>Choose a category to review</h1>
 	<%
 		try
-		{
-			//Create a connection string
-			String url = "jdbc:mysql://cs336database.c89rkcpk4ocp.us-east-2.rds.amazonaws.com:3306/BarBeerDrinkerSample";
-			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
+		{	
+			String url = "jdbc:mysql://cs336database.c89rkcpk4ocp.us-east-2.rds.amazonaws.com:3306/hoteldatabase";
 			Class.forName("com.mysql.jdbc.Driver");
-			
-			//Create a connection to your DB
 			Connection con = DriverManager.getConnection(url, "root", "hotelcs336");
-			
-			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			
-			//Get cid from hello.jsp
-			String entity = request.getAttribute("cid").toString();
-			
-			//Query to get Customer information
-			String str = "select * from Customer where CID =" + entity;
-			
-			//Execute query above 
+			int cid = Integer.parseInt(request.getParameter("cid"));
+			String InvoiceNo = request.getParameter("InvoiceNo");
+			String str = "select * from makes where CID = " + cid + " and InvoiceNo = " + InvoiceNo;
 			ResultSet result = stmt.executeQuery(str);
-						
-			//Make an HTML table to show the results in:
+			result.next();
 			out.print("<table>");
-						
-			//make a row
 			out.print("<tr>");
-						
-			//make a column
 			out.print("<td>");
-						
-			//print out column header
 			out.print("Category");
 			out.print("</td>");
 			out.print("</tr>");
 			
-			if(result.getBoolean("isRoomReviewed") == true && result.getBoolean("isBreakfastReviewed") == true && result.getBoolean("isServiceReviewed") == true)
+			if(result.getInt("isRoomReviewed") == 1 && result.getInt("isBreakfastReviewed") == 1 && result.getInt("isServiceReviewed") == 1)
 			{
 				out.print("All categories are reviewed.");
-			}
-						
-			if (result.getBoolean("isRoomReviewed") != true)
+			}		
+			
+			if (result.getInt("isRoomReviewed") != 1)
 			{
 				out.print("<tr>");
 				out.print("<td>");
-				out.print("Room Review ");
-				out.print("<form method=get action=Review.jsp enctype=text/plain>");
-				/*out.print("<input type=text name=InvoiceNo value="+ request.getParameter("InvoiceNo") + "  >");*/
-				/*out.print("<input type=text name=cid value="+ entity + "  >");*/
-				out.print("<input type=text name=category value=room  >");
-				out.print("<input type=button value=Choose>");
-				out.print("</form>");
+				out.print("Room Review");
+				out.print("</td>");
+				out.print("<td>");
+				%>
+				<form method="get" action="Review.jsp" enctype=text/plain>
+				<input type = "hidden" name = "cid" value = <%=request.getParameter("cid")%>>
+				<input type = "hidden" name = "InvoiceNo" value = <%=request.getParameter("InvoiceNo")%>>
+				<input type = "hidden" name = "category" value = "room">
+ 				<input type = "submit" value = "Review"/>
+				</form>
+				<%
 				out.print("</td>");
 				out.print("</tr>");
 			}
-					
-			if (result.getBoolean("isBreakfastReviewed") != true)
+			else
 			{
 				out.print("<tr>");
 				out.print("<td>");
-				out.print("Breakfast Review ");
-				out.print("<form method=get action=Review.jsp enctype=text/plain>");
-				/*out.print("<input type=text name=InvoiceNo value="+ request.getParameter("InvoiceNo") + "  >");*/
-				/*out.print("<input type=text name=cid value="+ entity + "  >");*/
-				out.print("<input type=text name=category value=breakfast  >");
-				out.print("<input type=button value=Choose>");
-				out.print("</form>");
+				out.print("Room is reviewed.");
 				out.print("</td>");
 				out.print("</tr>");
 			}
-					
-			if (result.getBoolean("isServiceReviewed") != true)
+			
+			if (result.getInt("isBreakfastReviewed") != 1)
 			{
 				out.print("<tr>");
 				out.print("<td>");
-				out.print("Service Review ");
-				out.print("<form method=get action=Review.jsp enctype=text/plain>");
-				/*out.print("<input type=text name=InvoiceNo value="+ request.getParameter("InvoiceNo") + "  >");*/
-				/*out.print("<input type=text name=cid value="+ entity + "  >");*/
-				out.print("<input type=text name=category value=service  >");
-				out.print("<input type=button value=Choose>");
-				out.print("</form>");
+				out.print("Breakfast Review");
+				out.print("</td>");
+				out.print("<td>");
+				%>
+				<form method="get" action="Review.jsp" enctype=text/plain>
+				<input type = "hidden" name = "cid" value = <%=request.getParameter("cid")%>>
+				<input type = "hidden" name = "InvoiceNo" value = <%=request.getParameter("InvoiceNo")%>>
+				<input type = "hidden" name = "category" value = "breakfast">
+ 				<input type = "submit" value = "Review"/>
+				</form>
+				<%
 				out.print("</td>");
 				out.print("</tr>");
 			}
-					
+			else
+			{
+				out.print("<tr>");
+				out.print("<td>");
+				out.print("Breakfast is reviewed.");
+				out.print("</td>");
+				out.print("</tr>");
+			}
+			
+			if (result.getInt("isServiceReviewed") != 1)
+			{
+				out.print("<tr>");
+				out.print("<td>");
+				out.print("Service Review");
+				out.print("</td>");
+				out.print("<td>");
+				%>
+				<form method="get" action="Review.jsp" enctype=text/plain>
+				<input type = "hidden" name = "cid" value = <%=request.getParameter("cid")%>>
+				<input type = "hidden" name = "InvoiceNo" value = <%=request.getParameter("InvoiceNo")%>>
+				<input type = "hidden" name = "category" value = "service">
+ 				<input type = "submit" value = "Review"/>
+				</form>
+				<%
+				out.print("</td>");
+				out.print("</tr>");
+			}
+			else
+			{
+				out.print("<tr>");
+				out.print("<td>");
+				out.print("Service is reviewed.");
+				out.print("</td>");
+				out.print("</tr>");
+			}
+			
 			out.print("</table>");
+			con.close();
 		}
 		catch (Exception e) 
 		{
@@ -108,6 +127,6 @@
 	<br>
 
 <br>	
-<pre>					<input type="button" value="Back" onClick = "javascript:location.href='hello.jsp'">	<input type="button" value="Logout" onClick = "javascript:location.href='welcome.jsp'"> </pre>
+<pre>						<input type="button" value="Logout" onClick = "javascript:location.href='welcome.jsp'"> </pre>
 </body>
 </html>
