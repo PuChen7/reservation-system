@@ -47,22 +47,28 @@
 				String redirectLink = null;
 				// falg for checking if the database has this user
 				boolean isFoundUser = false;
-				
-				while (result.next()){
-					/* Check if database has this user */
-					if (result.getString("Name").equals(username) && result.getString("password").equals(password)){
-						// get the cid
-						int cid = Integer.valueOf(result.getString("CID"));
-						isFoundUser = true;
-						request.setAttribute("cid", cid);
-						request.getRequestDispatcher("hello.jsp").forward(request,response);
-						break;
+				/* Check if this is admin */
+				if (username.equals("admin") && password.equals("admin")){
+					response.sendRedirect("Data.jsp");
+				} else {
+					while (result.next()){
+						
+						/* Check if database has this user */
+						if (result.getString("Name").equals(username) && result.getString("password").equals(password)){
+							// get the cid
+							int cid = Integer.valueOf(result.getString("CID"));
+							isFoundUser = true;
+							request.setAttribute("cid", cid);
+							request.getRequestDispatcher("hello.jsp").forward(request,response);
+							break;
+						}
+					}
+					if (isFoundUser == false){
+						/* direct to the error page */
+						response.sendRedirect("no_such_user.jsp");
 					}
 				}
-				if (isFoundUser == false){
-					/* direct to the error page */
-					response.sendRedirect("no_such_user.jsp");
-				}
+				
 			}
 			
 			

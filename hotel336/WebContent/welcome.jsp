@@ -180,6 +180,7 @@ input[type=password]:focus {
 	    <br>
 	    <input class="button button5" type = "submit" value = "Login" />
 	</form>
+	<br>
 
 New user? Register first to login: <br>
 <input class="button button5" type = "submit" value = "Register" onClick = "javascript:location.href='register.jsp'"/>

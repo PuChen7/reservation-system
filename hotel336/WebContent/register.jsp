@@ -65,6 +65,34 @@
 	  margin-left: 60px;
 	 }
 	 
+	 .button{
+		background-color: #4CAF50; /* Green */
+	    border: none;
+	    color: white;
+	    padding: 8px 10px;
+	    text-align: center;
+	    text-decoration: none;
+	    display: inline-block;
+	    font-size: 12px;
+	    margin: 4px 2px;
+	    -webkit-transition-duration: 0.4s; /* Safari */
+	    transition-duration: 0.4s;
+	    cursor: pointer;
+	}
+	
+	
+	.button5 {
+		background-color: white;
+	    color: black;
+	    border: 2px solid #e7e7e7;
+	    
+	}
+	
+	.button5:hover {
+	    background-color: #e7e7e7;
+	}
+	 
+	 
 </style>
 
 </head>
@@ -94,9 +122,10 @@
 		    Phone Number: <input type = "text" name = "register_phone">
 		    <br />
 		    Password: <input type = "password" name = "register_password" />
+		    <br>
 		    *Password length should between 1-16.
 		    <br>
-	    <input type = "submit" value = "Register" />
+	    <input class="button button5" type = "submit" value = "Register" />
 		</form>
 	</div>
 </body>
