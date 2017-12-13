@@ -23,25 +23,6 @@
 				Connection con = DriverManager.getConnection(url, "root", "hotelcs336");
 				Statement stmt = con.createStatement();
 				
-				
-				String temp = "SELECT InDate, OutDate FROM Reserves";
-				ResultSet rs = stmt.executeQuery(temp);
-				boolean flag = false;
-				while(rs.next())
-				{
-					Date inDate = rs.getDate("InDate");
-					Date outDate = rs.getDate("outDate");
-					if((sd.compareTo(inDate)>=0 && sd.compareTo(outDate)<=0)||(ed.compareTo(inDate)>=0 && ed.compareTo(outDate)<=0))
-					{
-						flag = true;
-					}
-				}
-				if(flag)
-				{
-					response.sendRedirect("dateError.jsp");
-				}
-				
-				
 				String entity = request.getParameter("hotelid");
 				String str = "SELECT * FROM Has_Room where Has_Room.HotelID = "+entity;
 				ResultSet result = stmt.executeQuery(str);
@@ -86,12 +67,13 @@
 				out.print("</table>");
 				con.close();
 			%>
-			<form action = "reserved.jsp">
+			<form action = "service.jsp">
 				Make your choice:
 				<select name = "room_no" size=1>
 					<option value = "-1"> select room</option>
 					<% 
 					List<String> list = new ArrayList<String>();
+					list = (List<String>)session.getAttribute("Data");
 					list.add(sDate);
 					list.add(eDate);
 					list.add(request.getParameter("hotelid").toString());
@@ -109,7 +91,7 @@
 								<option value = <%=result.getInt("Room_no") %>><%=result.getInt("Room_no") %></option>
 							<%
 						}
-						session.setAttribute("Date", list);
+						session.setAttribute("Data", list);
 						con.close();
 					} catch (Exception e) {
 						} 	
@@ -117,7 +99,7 @@
 
 						</select>
 						
-				<input type="submit" value="Resever">
+				<input type="submit" value="Continue">
 			</form>
 
 	

@@ -21,55 +21,60 @@
 			String entity = request.getAttribute("cid").toString();
 			String str = "select r.InvoiceNo, h.HotelID, h.Location from Reservation r, Hotel h, Contain c where h.HotelID = c.HotelID and r.InvoiceNo = c.InvoiceNo";
 			ResultSet result = stmt.executeQuery(str);
-			
-			out.print("<table>");
-			out.print("<tr>");
-			out.print("<td>");
-			out.print("InvoiceNo");
-			out.print("</td>");
-			out.print("<td>");
-			out.print("HotelID");
-			out.print("</td>");
-			out.print("<td>");
-			out.print("Location");
-			out.print("</td>");
-			out.print("</tr>");
-
-			while (result.next()) 
+			if (!result.next() ) {
+			    out.println("No reservations available.");
+			}
+			else
 			{
-				//make a row
+				out.print("<table>");
 				out.print("<tr>");
-				//make a column
 				out.print("<td>");
-				//Print out current InvoiceNo:
-				out.print(result.getInt("InvoiceNo"));
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				//Print out current Hotel ID:
-				out.print(result.getInt("HotelID"));
+				out.print("InvoiceNo");
 				out.print("</td>");
 				out.print("<td>");
-				//Print out current Hotel Location:
-				out.print(result.getString("Location"));
+				out.print("HotelID");
 				out.print("</td>");
 				out.print("<td>");
-				%>
-					<form method="get" action="choose.jsp" enctype=text/plain>
-					<input type = "hidden" name = "cid" value = <%=request.getAttribute("cid").toString()%>>
-					<input type = "hidden" name = "InvoiceNo" value = <%=result.getInt("InvoiceNo")%>>
-					<input type = "submit" value = "Review"/>
-					</form>
-				<%
+				out.print("Location");
 				out.print("</td>");
 				out.print("</tr>");
+				
+				while (result.next()) 
+				{
+					//make a row
+					out.print("<tr>");
+					//make a column
+					out.print("<td>");
+					//Print out current InvoiceNo:
+					out.print(result.getInt("InvoiceNo"));
+					out.print("</td>");
+					//make a column
+					out.print("<td>");
+					//Print out current Hotel ID:
+					out.print(result.getInt("HotelID"));
+					out.print("</td>");
+					out.print("<td>");
+					//Print out current Hotel Location:
+					out.print(result.getString("Location"));
+					out.print("</td>");
+					out.print("<td>");
+					%>
+						<form method="get" action="choose.jsp" enctype=text/plain>
+						<input type = "hidden" name = "cid" value = <%=request.getAttribute("cid").toString()%>>
+						<input type = "hidden" name = "InvoiceNo" value = <%=result.getInt("InvoiceNo")%>>
+						<input type = "submit" value = "Review"/>
+						</form>
+					<%
+					out.print("</td>");
+					out.print("</tr>");
+				}
+				out.print("</table>");
 			}
-			out.print("</table>");
 			con.close();
 		} 
 		catch (Exception e) 
 		{
-			out.print("No reservations available.");
+			out.print("Function is not available.");
 		}
 	%>
 	<br>
