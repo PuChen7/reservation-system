@@ -98,7 +98,7 @@
 	<br>
 	<br>
 	<form method="get" action="search.jsp" enctype=text/plain>
-	Start a new reservation <input type = "button" value = "Start"/>
+	Start a new reservation <input type = "submit" value = "Start"/>
 	</form>
 	<br>
 	<pre>					<input type="button" value="Logout" onClick = "javascript:location.href='welcome.jsp'"> </pre>
