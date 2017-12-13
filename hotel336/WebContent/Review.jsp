@@ -35,6 +35,9 @@
 	<br>
 	<input type="submit" value="submit" name = "subR">
 	<input type="button" value="Back" onClick = "javascript:location.href='hello.jsp'">
+	<%
+		out.print(request.getAttribute("cid"));
+	%>
 </form>
 </body>
 </html>

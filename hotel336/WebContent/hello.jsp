@@ -14,52 +14,27 @@
 	<%
 		try 
 		{
-			//Create a connection string
-			String url = "jdbc:mysql://cs336database.c89rkcpk4ocp.us-east-2.rds.amazonaws.com:3306/BarBeerDrinkerSample";
-			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
+			String url = "jdbc:mysql://cs336database.c89rkcpk4ocp.us-east-2.rds.amazonaws.com:3306/hoteldatabase";
 			Class.forName("com.mysql.jdbc.Driver");
-	
-			//Create a connection to your DB
 			Connection con = DriverManager.getConnection(url, "root", "hotelcs336");
-	
-			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			
-			//Get cid from welcome.jsp
 			String entity = request.getAttribute("cid").toString();
-			
-			//Query to get InvoiceNo, HotelId, and Location
-			String str = "select r.InvoiceNo, h.HotelID, h.Location from Reservation r, Hotel h join Contain c on h.HotelID = c.HotelID and c.InvoiceNo = r.InvoiceNo";
-			
-			//Execute query above
+			String str = "select r.InvoiceNo, h.HotelID, h.Location from Reservation r, Hotel h, Contain c where h.HotelID = c.HotelID and r.InvoiceNo = c.InvoiceNo";
 			ResultSet result = stmt.executeQuery(str);
-				
-			//Make an HTML table to show the results in:
-			out.print("<table>");
-				
-			//make a row
-			out.print("<tr>");
 			
-			//make a column
+			out.print("<table>");
+			out.print("<tr>");
 			out.print("<td>");
-			//print out column header
-			out.print("Invoice No");
+			out.print("InvoiceNo");
 			out.print("</td>");
-				
-			//make a column
 			out.print("<td>");
-			//print out column header
-			out.print("Hotel ID");
+			out.print("HotelID");
 			out.print("</td>");
-				
-			//make a column
 			out.print("<td>");
-			//print out column header
-			out.print("Hotel Location");
+			out.print("Location");
 			out.print("</td>");
 			out.print("</tr>");
-				
-			//parse out the results
+
 			while (result.next()) 
 			{
 				//make a row
@@ -78,23 +53,26 @@
 				//Print out current Hotel Location:
 				out.print(result.getString("Location"));
 				out.print("</td>");
-				//Make the Choose button
 				out.print("<td>");
-				out.print("<form method=get action=choose.jsp enctype=text/plain>");
-				out.print("<input type=text name=InvoiceNo value="+ result.getInt("InvoiceNo") + "  >");
-				/*out.print("<input type=text name=r_choose value="+ entity + "  >");*/
-				out.print("<input type=button value=Choose>");
-				out.print("</form>");
+				%>
+					<form method="get" action="choose.jsp" enctype=text/plain>
+					<input type = "hidden" name = "cid" value = <%=request.getAttribute("cid").toString()%>>
+					<input type = "hidden" name = "InvoiceNo" value = <%=result.getInt("InvoiceNo")%>>
+					<input type = "submit" value = "Review"/>
+					</form>
+				<%
 				out.print("</td>");
 				out.print("</tr>");
 			}
 			out.print("</table>");
+			con.close();
 		} 
 		catch (Exception e) 
 		{
 			out.print("No reservations available.");
 		}
 	%>
+	
 	<br>
 	<br>
 	<form method="get" action="search.jsp" enctype=text/plain>
