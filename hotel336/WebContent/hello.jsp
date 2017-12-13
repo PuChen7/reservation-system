@@ -72,10 +72,10 @@
 			out.print("No reservations available.");
 		}
 	%>
-	
 	<br>
 	<br>
 	<form method="get" action="search.jsp" enctype=text/plain>
+	<input type = "hidden" name = "cid" value = <%=request.getAttribute("cid").toString()%>>
 	Start a new reservation <input type = "submit" value = "Start"/>
 	</form>
 	<br>
