@@ -34,6 +34,7 @@
 			// get the user password
 			String password = request.getParameter("password");
 			
+			
 			// get the input username
 			String username = request.getParameter("username");
 			// get the input cid
@@ -58,8 +59,10 @@
 							// get the cid
 							int cid = Integer.valueOf(result.getString("CID"));
 							isFoundUser = true;
+							
 							request.setAttribute("cid", cid);
 							request.getRequestDispatcher("hello.jsp").forward(request,response);
+							
 							break;
 						}
 					}

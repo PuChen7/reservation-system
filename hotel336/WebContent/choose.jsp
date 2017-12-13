@@ -29,11 +29,7 @@
 			out.print("Category");
 			out.print("</td>");
 			out.print("</tr>");
-			
-			if(result.getInt("isRoomReviewed") == 1 && result.getInt("isBreakfastReviewed") == 1 && result.getInt("isServiceReviewed") == 1)
-			{
-				out.print("All categories are reviewed.");
-			}		
+		
 			
 			if (result.getInt("isRoomReviewed") != 1)
 			{
@@ -127,6 +123,10 @@
 	<br>
 
 <br>	
-<pre>						<input type="button" value="Logout" onClick = "javascript:location.href='welcome.jsp'"> </pre>
+<pre>						<form action = "review_back.jsp">
+							<input type = "hidden" name = "cid" value = <%= request.getParameter("cid")%>>
+							<input type = "submit" value = "Back">
+							</form> </pre>
+<pre>							<input type="button" value="Logout" onClick = "javascript:location.href='welcome.jsp'"> </pre>
 </body>
 </html>

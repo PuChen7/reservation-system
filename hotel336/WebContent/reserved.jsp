@@ -16,6 +16,7 @@
 				List<String> list = new ArrayList<String>();
 				list = (List<String>)session.getAttribute("Data");
 				
+				
 				// get parameter
 				int cid = Integer.parseInt(list.get(0));
 				int room_no = Integer.parseInt(list.get(4));
@@ -190,9 +191,17 @@
 				
 				
 		%>
-		<form action = "hello.jsp">
-			<input type = "submit" value = "finish">
+		<%
+		//request.setAttribute("cid", cid);
+		//request.getRequestDispatcher("hello.jsp").forward(request,response);
+		%>
+		<form action = "reserved_back.jsp">
+			<input type = "submit" value = "Finish">
 		</form>
+		
+		
+			
+			
 		
 		
 	</body>

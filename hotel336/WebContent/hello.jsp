@@ -19,7 +19,7 @@
 			Connection con = DriverManager.getConnection(url, "root", "hotelcs336");
 			Statement stmt = con.createStatement();
 			String entity = request.getAttribute("cid").toString();
-			String str = "select r.InvoiceNo, h.HotelID, h.Location from Reservation r, Hotel h, Contain c where h.HotelID = c.HotelID and r.InvoiceNo = c.InvoiceNo";
+			String str = "select m.InvoiceNo, h.HotelID, h.Location from makes m, Hotel h, Contain c where h.HotelID = c.HotelID and m.InvoiceNo = c.InvoiceNo and m.CID = " + entity;
 			ResultSet result = stmt.executeQuery(str);
 			if (!result.next() ) {
 			    out.println("No reservations available.");
@@ -39,7 +39,7 @@
 				out.print("</td>");
 				out.print("</tr>");
 				
-				while (result.next()) 
+				do
 				{
 					//make a row
 					out.print("<tr>");
@@ -67,7 +67,7 @@
 					<%
 					out.print("</td>");
 					out.print("</tr>");
-				}
+				} while(result.next());
 				out.print("</table>");
 			}
 			con.close();

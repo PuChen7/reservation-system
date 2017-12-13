@@ -10,7 +10,9 @@
 </head>
 <body>
 	<%	
+	
 		String id = request.getParameter("cid");
+		
 		try{
 			//Create a connection string
 			String url = "jdbc:mysql://cs336database.c89rkcpk4ocp.us-east-2.rds.amazonaws.com:3306/hoteldatabase";
@@ -33,18 +35,26 @@
 			//get category
 			String category = request.getParameter("category");
 			//generate reviewid
+			
 			String step1 = id+inno;
-			String step2 = step1+Integer.toString((category.charAt(0)+0));
-			int reviewid = Integer.parseInt(step2);
+			//String step2 = step1+Integer.toString((category.charAt(0)+0));
+			
+			int reviewid = (int)(Math.random() * 100000);
 			int cid = Integer.parseInt(id);
 			int invoice = Integer.parseInt(inno);
 			int rate = Integer.parseInt(r);
 			String str = "SELECT ResDate FROM Reservation Where InvoiceNo = "+inno;
+			
 			ResultSet result = stmt.executeQuery(str);
+			
 			result.next();
 			//get the date of the invoice
 			java.sql.Date date = result.getDate("ResDate");
 			String insertSQL = "";
+			
+			String tmp = category;
+			String room_tmp = "room";
+			
 			if(category.equals("room")){
 				insertSQL = "INSERT INTO RoomReview(ReviewID,Rating,TextComment,reviewDate)" + "VALUES(?,?,?,?)";
 
@@ -60,19 +70,22 @@
 			st.setDate(4, date);
 			st.executeUpdate();
 			if(category.equals("room")){
-				str = "SET @isRoomReviewed := 1 FROM make Where CID="+id+"and InvoiceNo="+inno;
+				str = "update makes set isRoomReviewed = 1 where CID="+id+" and InvoiceNo="+inno;
 			}else if(category.equals("breakfast")){
-				str = "SET @isBreakfastReviewed := 1 FROM make Where CID="+id+"and InvoiceNo="+inno;
+				str = "update makes set isBreakfastReviewed = 1 where CID="+id+" and InvoiceNo="+inno;
 			}else{
-				str = "SET @isServiceReviewed := 1 FROM make Where CID="+id+"and InvoiceNo="+inno;
+				str = "update makes set isServiceReviewed = 1 where CID="+id+" and InvoiceNo="+inno;
 			}
 			stmt.execute(str);
 			con.close();
 		}catch(Exception e){
 			
 		}finally{
-			request.setAttribute("cid", id);
-			request.getRequestDispatcher("hellow.jsp").forward(request, response);
+			//System.out.print(request.getParameter("cid"));
+			request.setAttribute("cid", Integer.parseInt(request.getParameter("cid")));
+			
+			
+			request.getRequestDispatcher("hello.jsp").forward(request, response);
 		}
 	%>
 </body>

@@ -13,7 +13,7 @@
 <p><font size="4">Please rate your experience of our service from 1 to 10</font></p>
 <p>1 represent you are extremely unsatisfied with our service and 10 means you are extremely satisfied with our service</p> 
 <br>
-<form method="post" action="reviewController.jsp">
+<form method="post" action="reviewHandle.jsp">
 	<select name="rate" size=1>
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -33,10 +33,13 @@
 	</textarea>
 	<br>
 	<br>
+	<input type="hidden" name="cid" value=<%= request.getParameter("cid") %>>
+	<input type="hidden" name="InvoiceNo" value=<%= request.getParameter("InvoiceNo") %>>
+	<input type="hidden" name="category" value=<%= request.getParameter("category") %>>
 	<input type="submit" value="submit" name = "subR">
 	<input type="button" value="Back" onClick = "javascript:location.href='hello.jsp'">
+	
 	<%
-		out.print(request.getAttribute("cid"));
 	%>
 </form>
 </body>
