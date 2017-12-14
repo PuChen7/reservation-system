@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Hotel CS336</title>
+<title>Hotel</title>
 
 <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 <style>
@@ -93,7 +93,7 @@ input[type=text] {
     border-radius: 4px;
     font-size: 17px;
     background-color: white;
-    background-position: 10px 10px; 
+    background-position: 10px 10px;
     background-repeat: no-repeat;
     padding: 10px 15px 12px 10px;
     -webkit-transition: width 0.4s ease-in-out;
@@ -111,7 +111,7 @@ input[type=password] {
     border-radius: 4px;
     font-size: 17px;
     background-color: white;
-    background-position: 10px 10px; 
+    background-position: 10px 10px;
     background-repeat: no-repeat;
     padding: 10px 15px 12px 10px;
     -webkit-transition: width 0.4s ease-in-out;
@@ -144,7 +144,7 @@ input[type=password]:focus {
 	background-color: white;
     color: black;
     border: 2px solid #e7e7e7;
-    
+
 }
 
 .button5:hover {
@@ -157,17 +157,17 @@ input[type=password]:focus {
 
 <body>
 
-<nav>            
-			<div class="tag">Welcome | Hotel 336</div>
+<nav>
+			<div class="tag">Welcome | Hotel</div>
             <ul>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a class="active" href="welcome.jsp">Home</a></li>
-            </ul>           
+            </ul>
 </nav>
 
 
-<h1> Welcome to Hotel 336! </h1> <!--  HTML way for output -->
+<h1> Welcome to Our Hotel</h1> <!--  HTML way for output -->
 <br>
 <br>
 <div class = "form">
