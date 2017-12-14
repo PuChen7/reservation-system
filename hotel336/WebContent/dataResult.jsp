@@ -48,7 +48,7 @@
 					al.add(t);
 				}
 			}
-			out.print("<p>The top rated Room type/types is/are</p>");
+			out.print("<p>The top rated Room type(s) is/are</p>");
 			for(int i = 0; i<al.size();i++){
 				out.print("<p>"+al.get(i)+"</p>");
 			}
