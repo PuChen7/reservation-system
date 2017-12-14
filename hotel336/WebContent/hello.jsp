@@ -10,7 +10,7 @@
 <title>Hello</title>
 </head>
 <body>
-	<h1>Hello</h1>
+	<h1>Hello!  Here are your reservation info:</h1>
 	<%
 		try 
 		{
